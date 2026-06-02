@@ -1,5 +1,5 @@
 .env
+.vscode/
 __pycache__/
-*.pyc
-*.pyo
-trackflow-ai.zip
+model_credentials/
+LOGS/
