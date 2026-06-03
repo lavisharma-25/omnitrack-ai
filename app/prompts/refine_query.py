@@ -1,4 +1,4 @@
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 
 system_prompt = """
 You are a query refiner.
@@ -16,9 +16,6 @@ Guidelines:
 """
 
 human_prompt = """
-Conversation history:
-{chat_history}
-
 Current user query:
 {question}
 
@@ -27,5 +24,6 @@ Rewrite the current user query as a standalone query following the instructions 
 
 refine_query_prompt = ChatPromptTemplate.from_messages([
     ("system", system_prompt),
+    MessagesPlaceholder(variable_name="chat_history"),
     ("human", human_prompt)
 ])

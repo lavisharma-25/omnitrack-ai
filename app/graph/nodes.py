@@ -2,8 +2,8 @@ from langchain_core.output_parsers import StrOutputParser
 
 from logs import logger
 from app.graph.state import TrackState
-from app.prompts.prompt_class
-from app.llm.llm_client import llm_model_flash, llm_model_lite
+from app import prompts as prompt
+from app.services.llm_client import llm_model_flash, llm_model_lite
 
 class GraphNodes:
 
@@ -21,24 +21,23 @@ class GraphNodes:
 
             parser = StrOutputParser()
 
-            chain = (prompt.refine_question_prompt | self.lite_model | parser)
+            chain = (prompt.refine_query_prompt | self.lite_model | parser)
 
-            response = chain.invoke(
-                {
+            response = chain.invoke({
                     "question": question,
                     "chat_history": chat_history,
-                }
-            )
+            })
 
-            return {"question": response.strip()}
+            return {"refined_question": response.strip()}
 
         except Exception as e:
             logger.error(str(e), exc_info=True)
-            return {"question": state.question}
+            return {"refined_question": state.question}
+
 
     def final_answer(self, state: TrackState):
         try:
-            question = state.question
+            question = state.refined_question
             section_data = state.relevant_section_data
             report_title = state.relevant_report_title
 
@@ -59,15 +58,11 @@ class GraphNodes:
                         )
                         break
 
-            paragraph = clean_text(
-                section_data.get("paragraph", "")
-            )
+            
 
             response = self.flash_model.invoke(
                 prompt.final_answer_prompt.format_messages(
-                    question=question,
-                    paragraph=paragraph,
-                    relevant_report_data=report_data,
+                    question=question
                 )
             )
 
@@ -78,6 +73,7 @@ class GraphNodes:
             return {
                 "answer": "An error occurred while generating the answer."
             }
+
 
     def update_history(self, state: TrackState):
         try:

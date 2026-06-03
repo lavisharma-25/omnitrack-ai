@@ -22,7 +22,7 @@ def build_workflow(checkpointer=None):
     # Edges
     # -------------------
     graph.add_edge(START, "refine_question")
-    graph.add_edge("refine_question", "final_answer")   
+    graph.add_edge("refine_question", "final_answer")
     graph.add_edge("final_answer", "update_history")
     graph.add_edge("update_history", END)
 
