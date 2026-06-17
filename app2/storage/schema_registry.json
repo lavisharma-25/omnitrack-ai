@@ -1,0 +1,12 @@
+{
+  "watchlist": {
+    "columns": [
+      "record_id",
+      "name",
+      "category",
+      "status",
+      "genre",
+      "release_year"
+    ]
+  }
+}

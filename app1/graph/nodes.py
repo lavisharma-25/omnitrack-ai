@@ -3,7 +3,7 @@ from langchain_core.output_parsers import StrOutputParser
 from app.core.logs import logger
 from app.graph.state import TrackState
 from app import prompts as prompt
-from app.services.llm_client import llm_model_flash, llm_model_lite
+from app.services.llm_service import llm_model_flash, llm_model_lite
 
 class GraphNodes:
 
