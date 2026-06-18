@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.config import port
+from app.core.settings import port
 from app.api.api_routers import router
 # from app.api.routes.assistant import router as assistant_router
 # from app.api.routes.trackers import router as trackers_router
