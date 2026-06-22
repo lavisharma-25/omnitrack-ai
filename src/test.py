@@ -5,23 +5,23 @@ from src.tools.tracker_tools.list_trackers import list_trackers
 from src.tools.tracker_tools.edit_tracker import edit_tracker
 from src.tools.tracker_tools.delete_tracker import delete_tracker
 from src.tools.tracker_tools.remove_records import remove_records
-from src.agents.supervisor.agent import supervisor_agent
+from src.agents.supervisor_agent import supervisor_agent
 
-def run_test1():
+# def run_test1():
 
-    print("\n🚀 CREATE TRACKER TEST")
-    result = create_tracker(
-        name="expenses",
-        columns=[
-            {"name": "amount", "type": "float"},
-            {"name": "category", "type": "string"},
-            {"name": "date", "type": "date"}
-        ]
-    )
-    print(result)
+#     print("\n🚀 CREATE TRACKER TEST")
+#     result = create_tracker(
+#         name="expenses",
+#         columns=[
+#             {"name": "amount", "type": "float"},
+#             {"name": "category", "type": "string"},
+#             {"name": "date", "type": "date"}
+#         ]
+#     )
+#     print(result)
 
-    print("\n📋 LIST TRACKERS")
-    print(list_trackers())
+#     print("\n📋 LIST TRACKERS")
+#     print(list_trackers())
 
     # print("\n✏️ EDIT TRACKER (ADD COLUMN)")
     # print(
@@ -49,33 +49,34 @@ def run_test2():
     print("==============================\n")
 
     # 1. Create Tracker
-    print("\n🟢 USER: Create a tracker called expenses with amount, category, date\n")
+    # print("\n🟢 USER: Create a tracker called expenses with amount, category, date\n")
 
-    response1 = supervisor_agent.invoke({
-        "messages": [
-            HumanMessage(content="""Create a tracker named expenses with columns: amount (float), category (string), date (date)""")
-        ]
-    })
+    # response1 = supervisor_agent.invoke({
+    #     "messages": [
+    #         HumanMessage(content="""Create a tracker named expenses with columns: amount (float), category (string), date (date)""")
+    #         # HumanMessage(content="""Create a tracker named habits with columns: habit_name (string), occurance (number), status (bool)""")
+    #     ]
+    # })
 
-    print("🤖 RESPONSE:\n", response1)
+    # print("🤖 RESPONSE:\n", response1["messages"][-1].content)
 
-    # # 2. List Trackers
+    # 2. List Trackers
     # print("\n🟢 USER: List all trackers\n")
 
     # response2 = supervisor_agent.invoke({
-    #     "input": "List all trackers"
+    #     "messages": [HumanMessage(content="List all trackers")]
     # })
 
-    # print("🤖 RESPONSE:\n", response2)
+    # print("🤖 RESPONSE:\n", response2["messages"][-1].content)
 
-    # # 3. Edit Tracker
-    # print("\n🟢 USER: Add notes column in expenses tracker\n")
+    # 3. Edit Tracker
+    print("\n🟢 USER: Add notes column in expenses tracker\n")
 
-    # response3 = supervisor_agent.invoke({
-    #     "input": "Add a column 'notes' of type string in expenses tracker"
-    # })
+    response3 = supervisor_agent.invoke({
+        "messages": [HumanMessage("Add a column 'notes' of type string in expenses tracker")]
+    })
 
-    # print("🤖 RESPONSE:\n", response3)
+    print("🤖 RESPONSE:\n", response3["messages"][-1].content)
 
     # # 4. Remove Records
     # print("\n🟢 USER: Clear all records from expenses tracker\n")

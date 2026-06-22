@@ -24,10 +24,7 @@ def create_tracker(name: str, columns: list):
 
     try:
         # Validate input using Pydantic
-        req = CreateTrackerRequest(
-            name=name,
-            columns=columns
-        )
+        req = CreateTrackerRequest(name=name, columns=columns)
 
     except Exception as e:
         return {

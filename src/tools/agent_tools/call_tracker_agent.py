@@ -1,6 +1,6 @@
 from langchain_core.messages import HumanMessage
 
-from src.agents.tracker_management.agent import tracker_agent
+from src.agents.tracker_agent import tracker_agent
 
 
 def call_tracker_agent(query: str):
